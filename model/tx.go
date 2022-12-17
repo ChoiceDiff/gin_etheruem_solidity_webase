@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type Transaction struct {
 	gorm.Model
-	sender   []byte
-	receiver []byte
-	product  Product
-	num      uint
-	money    float64
+	Sender   []byte
+	Receiver []byte
+	Product  Product
+	Num      uint
+	Money    float64
 }

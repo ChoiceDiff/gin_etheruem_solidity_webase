@@ -4,12 +4,12 @@ import "gorm.io/gorm"
 
 type BlockChainAccount struct {
 	gorm.Model
-	publicKey  []byte  `json:"public_key"`
-	privateKey []byte  `json:"private_key"`
-	address    []byte  `json:"address"`
-	name       string  `json:"name"`
-	role       byte    `json:"role"`
-	nonce      uint64  `json:"nonce"` //交易次数
-	money      float64 `json:"money"`
-	reputation int64   `json:"reputation"` //节点信誉
+	PublicKey  []byte  `json:"public_key"`
+	PrivateKey []byte  `json:"private_key"`
+	Address    []byte  `json:"address"`
+	Name       string  `json:"name"`
+	Role       byte    `json:"role"`
+	Nonce      uint64  `json:"nonce"` //交易次数
+	Money      float64 `json:"money"`
+	Reputation int64   `json:"reputation"` //节点信誉
 }

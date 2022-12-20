@@ -1,0 +1,31 @@
+.clothesSizeContainer{
+    display: block;
+    background-color: #0f0;
+    box-sizing:content-box;
+    text-align: center;
+
+}
+
+.clothesSizeDiv{
+    display: inline-block;
+    width: 20%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 20px;
+    transition: 0.3s;
+}
+
+.clothesSizeDiv:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+    border: 3px solid rgb(18, 17, 17);
+
+}
+.clothesSizeImg{
+    display: block;
+    width:200px;
+    height:auto;
+}
+.clothesSizeSpan{
+    display: block;
+    text-align:left;
+}

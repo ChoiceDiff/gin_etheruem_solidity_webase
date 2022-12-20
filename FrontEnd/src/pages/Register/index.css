@@ -1,0 +1,142 @@
+
+header {
+    height: 84px;
+    border-bottom: 2px solid rgb(38, 33, 117);
+}
+.registercontainer{
+    display: flex;
+	justify-content: center;
+	align-items: center;
+    background-image:linear-gradient(rgba(100,255,0,0.04),rgba(0,255,0,0.04))
+}
+.registerarea {
+    position:relative;
+    top:100px;
+    background-image:linear-gradient(rgba(100,255,0,0.05),rgba(0,255,0,0.1));
+	border-radius: 10px;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+			0 10px 10px rgba(0,0,0,0.22);
+	overflow: hidden;
+	width: 768px;
+	max-width: 100%;
+	min-height: 480px;
+}
+.registerarea h3 {
+    height: 42px;
+    border-bottom: 1px solid #ccc;
+    background-color: #ececec;
+    line-height: 42px;
+    padding: 0 10px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.login {
+    float: right;
+    font-size: 14px;
+}
+.login a {
+    color: rgb(38, 33, 117);
+}
+
+.safe em {
+    padding: 0 12px;
+    /* background-color: pink; */
+    color: #fff;
+}
+.ruo {
+    background-color: #de1111;
+}
+.zhong {
+    background-color: #40b83f;
+}
+.qiang {
+    background-color: #f79100;
+}
+.agree {
+    padding-left: 95px;
+}
+.agree input {
+    vertical-align: middle;
+}
+.agree a {
+    color: #1ba1e6;
+}
+.btn {
+    width: 200px;
+    height: 34px;
+    background-color: rgb(38, 33, 117)3;
+    font-size: 14px;
+    color: #fff;
+    margin: 30px 0 0 100px;
+}
+.mod_copyright {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.containerloader
+{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.containerloader >span
+{
+    font-family: Arial;
+    font-size: 50px;
+    color: rgba(255, 255, 255, .1);
+    display: inline-block;
+    transition: all 1s;
+    animation: animate 2s infinite;
+}
+.containerloader span:nth-child(1){
+    animation-delay: .1s;
+}
+.containerloader span:nth-child(2){
+    animation-delay: .2s;
+}
+.containerloader span:nth-child(3){
+    animation-delay: .3s;
+}
+.containerloader span:nth-child(4){
+    animation-delay: .4s;
+}
+.containerloader span:nth-child(5){
+    animation-delay: .5s;
+}
+.containerloader span:nth-child(6){
+    animation-delay: .6s;
+}
+.containerloader span:nth-child(7){
+    animation-delay: .7s;
+}
+.containerloader span:nth-child(8){
+    animation-delay: .8s;
+}
+.containerloader span:nth-child(9){
+    animation-delay: .9s;
+}
+.containerloader span:nth-child(10){
+    animation-delay: 1s;
+}
+@keyframes animate
+{
+    0%{
+        color: rgba(255, 255, 255, .1);
+        transform: translateY(0);
+        margin-left: 0;
+    }
+    50%{
+        color: rgba(13, 247, 60, 7.163);
+        transform: translateY(-60px);
+        text-shadow: 10px 10px 15px rgba(0,0,0,1);
+        margin-left: 10px;
+    }
+    100%{
+        color: rgba(255, 255, 255, .1);
+        transform: translateY(0);
+        margin-left: 0;
+    }
+}

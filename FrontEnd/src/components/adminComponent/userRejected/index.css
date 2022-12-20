@@ -1,0 +1,15 @@
+.userUnapprove_button_approve{
+    border: 1px solid blue;
+    padding: 0 14px;
+    font-size: 14px;
+    color: #1E9FFF;
+    border-radius: 10px;
+}
+
+.userUnapprove_button_reject{
+    border: 1px solid red;
+    padding: 0 14px;
+    font-size: 14px;
+    color: #e962aa;
+    border-radius: 10px;
+}

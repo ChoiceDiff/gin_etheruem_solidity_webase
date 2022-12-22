@@ -83,18 +83,18 @@ Consensus Mechanism in Consortium Blockchain based on Multi-Role Reputation:
         Customer(Retail): M, V
         Customer(Client): V
 
-        Factor:V
-        Express:V
-        Pay:V
+        Factor:V, S
+        Express:V, S
+        Pay:V, S
 
     3.3 Job && Block Packing
         Suppliers pack their Super&&SuperTransfer txs.
         Businesses and Retails pack their Middle&&MiddleTransfer txs.
         Clients sometimes are just senders who are responsible for verify the txs.
 
-        Factor:Signature
-        Express:Signature
-        Pay:Signature
+        Factor:Signature, Verify
+        Express:Signature, Verify
+        Pay:Signature, Verify
 
 4.Consistency Process:
     4.1 UTXO

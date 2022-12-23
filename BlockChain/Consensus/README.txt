@@ -73,6 +73,7 @@ Consensus Mechanism in Consortium Blockchain based on Multi-Role Reputation:
         //按比例4:1
 
         Customer(Client):100 R
+
         Factor:100 R
         Express:100 R
         Pay:100 R

@@ -1,11 +1,10 @@
 package Consensus
 
 type Transaction struct {
-	Sender   []byte
-	Receiver []byte
-	Product  uint
+	Sender    string
+	Receiver  string
+	ProductId uint
 	//Product  Product
 	Num   uint
 	Price float64
-	Money float64
 }

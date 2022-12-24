@@ -16,26 +16,40 @@ var utxo UTXO
 var Products []Product
 
 var txSupplier map[string]chan Transaction
-var txBusiness []chan Transaction
-var txRetail []chan Transaction
-var txClient []chan Transaction
-var txPay []chan Transaction
-var txFactor []chan Transaction
-var txExpress []chan Transaction
+var txBusiness map[string]chan Transaction
+var txRetail map[string]chan Transaction
+var txClient map[string]chan Transaction
+var txPay map[string]chan Transaction
+var txFactor map[string]chan Transaction
+var txExpress map[string]chan Transaction
 
 var blockSupplier map[string]chan Block
-var blockBusiness []chan Block
-var blockRetail []chan Block
-var blockClient []chan Block
-var blockPay []chan Block
-var blockFactor []chan Block
-var blockExpress []chan Block
+var blockBusiness map[string]chan Block
+var blockRetail map[string]chan Block
+var blockClient map[string]chan Block
+var blockPay map[string]chan Block
+var blockFactor map[string]chan Block
+var blockExpress map[string]chan Block
 
 func ConCmd() {
 	UserReputation = make(map[string]int)
 	UserNum = make(map[string]int) //访问map需要初始化
 	txSupplier = make(map[string]chan Transaction)
+	txBusiness = make(map[string]chan Transaction)
+	txRetail = make(map[string]chan Transaction)
+	txClient = make(map[string]chan Transaction)
+	txPay = make(map[string]chan Transaction)
+	txFactor = make(map[string]chan Transaction)
+	txExpress = make(map[string]chan Transaction)
+
 	blockSupplier = make(map[string]chan Block)
+	blockBusiness = make(map[string]chan Block)
+	blockRetail = make(map[string]chan Block)
+	blockClient = make(map[string]chan Block)
+	blockPay = make(map[string]chan Block)
+	blockFactor = make(map[string]chan Block)
+	blockExpress = make(map[string]chan Block)
+
 	Roles = [7]string{"Supplier", "Business", "Retail", "Client", "Pay", "Factor", "Express"}
 	UserNum["Supplier"] = 5
 	UserNum["Business"] = 15
@@ -56,85 +70,95 @@ func ConCmd() {
 
 	for i := 0; i < 5; i++ {
 		kind := "Supplier"
-		name := "Supplier" + strconv.Itoa(i)
+		name := kind + strconv.Itoa(i)
 		SupplierAccount = append(SupplierAccount, name) //加入用户
 		UserReputation[name] = 500
 		txSupplier[name] = make(chan Transaction, 10) //加入专属交易管道
 		blockSupplier[name] = make(chan Block, 5)     //加入专属区块管道
-		go Supplier(i, kind)                          //编号，类别
+		go ConsistencyProcess(i, kind)                //编号，类别
 	} //5  Suppliers
 
-	//for i := 0; i < 15; i++ {
-	//	name := "Business" + strconv.Itoa(i)
-	//	UserReputation[name] = 500
-	//	txBusiness = append(txBusiness, make(chan Transaction))
-	//	blockBusiness = append(blockBusiness, make(chan Block))
-	//	go Business(i)
-	//} //15 Businesses
-	//
-	//for i := 0; i < 5; i++ {
-	//	name := "Retail" + strconv.Itoa(i)
-	//	UserReputation[name] = 500
-	//	txRetail = append(txRetail, make(chan Transaction))
-	//	blockRetail = append(blockRetail, make(chan Block))
-	//	go Retail(i)
-	//} //5  Retails
-	//
-	//for i := 0; i < 10; i++ {
-	//	name := "Client" + strconv.Itoa(i)
-	//	UserReputation[name] = 100
-	//	txClient = append(txClient, make(chan Transaction))
-	//	blockClient = append(blockClient, make(chan Block))
-	//	go Client(i)
-	//} //10 Clients
-	//
-	//for i := 0; i < 2; i++ {
-	//	name := "Pay" + strconv.Itoa(i)
-	//	UserReputation[name] = 100
-	//	txPay = append(txPay, make(chan Transaction))
-	//	blockPay = append(blockPay, make(chan Block))
-	//	go Pay(i)
-	//} //2  Pays
-	//for i := 0; i < 2; i++ {
-	//	name := "Express" + strconv.Itoa(i)
-	//	UserReputation[name] = 100
-	//	txExpress = append(txExpress, make(chan Transaction))
-	//	blockExpress = append(blockExpress, make(chan Block))
-	//	go Express(i)
-	//} //2  Expresses
-	//for i := 0; i < 2; i++ {
-	//	name := "Factor" + strconv.Itoa(i)
-	//	UserReputation[name] = 100
-	//	txFactor = append(txFactor, make(chan Transaction))
-	//	blockFactor = append(blockFactor, make(chan Block))
-	//	go Factor(i)
-	//} //2  Factors
+	for i := 0; i < 15; i++ {
+		kind := "Business"
+		name := kind + strconv.Itoa(i)
+		UserReputation[name] = 500
+		txBusiness[name] = make(chan Transaction, 10) //加入专属交易管道
+		blockBusiness[name] = make(chan Block, 5)     //加入专属区块管道
+		go ConsistencyProcess(i, kind)
+	} //15 Businesses
+
+	for i := 0; i < 5; i++ {
+		kind := "Retail"
+		name := kind + strconv.Itoa(i)
+		UserReputation[name] = 500
+		txRetail[name] = make(chan Transaction, 10) //加入专属交易管道
+		blockRetail[name] = make(chan Block, 5)     //加入专属区块管道
+		go ConsistencyProcess(i, kind)
+	} //5  Retails
+
+	for i := 0; i < 10; i++ {
+		kind := "Client"
+		name := kind + strconv.Itoa(i)
+		UserReputation[name] = 100
+		txClient[name] = make(chan Transaction, 10) //加入专属交易管道
+		blockClient[name] = make(chan Block, 5)     //加入专属区块管道
+		go ConsistencyProcess(i, kind)
+	} //10 Clients
+
+	for i := 0; i < 2; i++ {
+		kind := "Pay"
+		name := kind + strconv.Itoa(i)
+		UserReputation[name] = 100
+		txPay[name] = make(chan Transaction, 10) //加入专属交易管道
+		blockPay[name] = make(chan Block, 5)     //加入专属区块管道
+		go ConsistencyProcess(i, kind)
+	} //2  Pays
+	for i := 0; i < 2; i++ {
+		kind := "Express"
+		name := kind + strconv.Itoa(i)
+		UserReputation[name] = 100
+		txExpress[name] = make(chan Transaction, 10) //加入专属交易管道
+		blockExpress[name] = make(chan Block, 5)     //加入专属区块管道
+		go ConsistencyProcess(i, kind)
+	} //2  Expresses
+	for i := 0; i < 2; i++ {
+		kind := "Factor"
+		name := kind + strconv.Itoa(i)
+		UserReputation[name] = 100
+		txFactor[name] = make(chan Transaction, 10) //加入专属交易管道
+		blockFactor[name] = make(chan Block, 5)     //加入专属区块管道
+		go ConsistencyProcess(i, kind)
+	} //2  Factors
 	select {}
 }
 
-func Supplier(routineIdOrTxSender int, kind string) {
+func ConsistencyProcess(routineIdOrTxSender int, kind string) {
 	user := kind + strconv.Itoa(routineIdOrTxSender)
 	fmt.Println("Start " + user + " Reputation: " + strconv.Itoa(UserReputation[user]))
 	go ReceivedTx(user)
-	ticker := time.NewTicker(2 * time.Second)
-	for _ = range ticker.C {
-		newTx := ChooseReceiverRandAndCreateTx(routineIdOrTxSender, kind)
+	//ticker := time.NewTicker(2 * time.Second)
+	for { //
+		rand.Seed(time.Now().UnixNano())
+		//timeRand := rand.Intn(5)
+		time.Sleep(time.Second)
+		newTx := ChooseReceiverRandomlyAndCreateTx(routineIdOrTxSender, kind)
 		fmt.Println(newTx)
+		///??????????
 		for i := 0; i < 5; i++ {
 			if i != routineIdOrTxSender {
 				txSupplier[kind+strconv.Itoa(i)] <- newTx
 			}
-		} //全部广播
+		} //全部广播!!!
 	}
 }
 
-func ChooseReceiverRandAndCreateTx(uid int, kind string) Transaction {
+func ChooseReceiverRandomlyAndCreateTx(uid int, kind string) Transaction {
 	receiverId := uid
 	receiverKind := kind
 	for receiverKind == kind && receiverId == uid {
 		rand.Seed(time.Now().UnixNano())
-		//randomKindId := rand.Intn(7)                  //
-		receiverKind = Roles[0]                               //随机挑一类
+		randomKindId := rand.Intn(7)                          //
+		receiverKind = Roles[randomKindId]                    //随机挑一类
 		receiverId = rand.Intn(10000) % UserNum[receiverKind] //每一类的人数不一样
 		// panic: invalid argument to Intn
 
@@ -159,58 +183,5 @@ func ReceivedTx(userName string) {
 	for {
 		newestTx := <-txSupplier[userName]
 		fmt.Println(userName, " Received TX!!! ", newestTx)
-	}
-}
-func Business(routineId int) {
-	fmt.Println("Start Business" + strconv.Itoa(routineId))
-	time.Sleep(2 * time.Second)
-	ticker := time.NewTicker(2 * time.Second)
-	for _ = range ticker.C {
-		fmt.Println("Business!!!")
-	}
-}
-
-func Retail(routineId int) {
-	fmt.Println("Start Supplier" + strconv.Itoa(routineId))
-	time.Sleep(2 * time.Second)
-	ticker := time.NewTicker(200 * time.Millisecond)
-	for _ = range ticker.C {
-		fmt.Println("Retail!!!")
-	}
-}
-
-func Client(routineId int) {
-	fmt.Println("Start Client" + strconv.Itoa(routineId))
-	time.Sleep(2 * time.Second)
-	ticker := time.NewTicker(200 * time.Millisecond)
-	for _ = range ticker.C {
-		fmt.Println("Client!!!")
-	}
-}
-
-func Pay(routineId int) {
-	fmt.Println("Start Pay" + strconv.Itoa(routineId))
-	time.Sleep(2 * time.Second)
-	ticker := time.NewTicker(200 * time.Millisecond)
-	for _ = range ticker.C {
-		fmt.Println("Pay!!!")
-	}
-}
-
-func Express(routineId int) {
-	fmt.Println("Start Express" + strconv.Itoa(routineId))
-	time.Sleep(2 * time.Second)
-	ticker := time.NewTicker(200 * time.Millisecond)
-	for _ = range ticker.C {
-		fmt.Println("Express!!!")
-	}
-}
-
-func Factor(routineId int) {
-	fmt.Println("Start Factor" + strconv.Itoa(routineId))
-	time.Sleep(2 * time.Millisecond)
-	ticker := time.NewTicker(200 * time.Millisecond)
-	for _ = range ticker.C {
-		fmt.Println("Factor!!!")
 	}
 }
